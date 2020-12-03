@@ -1,5 +1,3 @@
-# Junlan
-
 # 开始步骤
 
 ## 1. Swagger
@@ -9,6 +7,8 @@
 ## 2. JWT
 
 ## 3. Shiro
+
+
 
 ## 4. yaml配置
 
@@ -256,7 +256,7 @@
 
 <img src="Junlan.assets/image-20201202194654155.png" alt="image-20201202194654155" style="zoom:50%;" />
 
-### 概念
+### 6.1 概念
 
 #### entity
 
@@ -267,6 +267,109 @@
 - value object 值对象 / view object 表现层对象
 - 主要对应页面显示【HTML】的数据对象。
 - 可以和表对应，也可以不，这根据业务的需要。
+
+### 6.2 角色权限处理
+
+- 实体类POJO
+
+  ```java
+  /**
+   * @Author LJ
+   * @Date 2020/12/3
+   * msg 系统角色
+   */
+  
+  @Data   // lombok
+  @Accessors(chain = true)
+  @ApiModel(value = "系统sys_role对象", description = "系统角色")
+  public class SysRole {
+  
+      @ApiModelProperty("主键")
+      @NotNull(message = "不能为空")
+      private Long id;
+  
+      @ApiModelProperty(value = "角色唯一编码")
+      private String roleCode;
+  
+      @ApiModelProperty(value = "角色对应名称")
+      private String roleName;
+  }
+  
+  @Data
+  @Accessors(chain = true)
+  @ApiModel(value = "Sys_Permission对象")
+  public class SysPermission {
+  
+      @ApiModelProperty("主键")
+      @NotNull(message = "不能为空")
+      private Long id;
+  
+      @ApiModelProperty(value = "归属类型编码")
+      private String typeCode;
+  
+      @ApiModelProperty(value = "归属类型名称")
+      private String typeName;
+  
+      @ApiModelProperty(value = "权限对应编码")
+      private String permissionCode;
+  
+      @ApiModelProperty(value = "权限对应名称")
+      private String permissionName;
+  }
+  
+  @Data
+  @Accessors(chain = true)
+  @ApiModel(value = "Sys_Role_Permission对象", description = "一个角色对应多个权限")
+  public class SysRolePermission {
+  
+      @ApiModelProperty("主键")
+      @NotNull(message = "不能为空")
+      private Long id;
+  
+      @ApiModelProperty("角色ID")
+      @NotNull(message = "不能为空")
+      private Long RoleId;
+  
+      @ApiModelProperty("权限ID")
+      @NotNull(message = "不能为空")
+      private Long PermissionId;
+  }
+  ```
+
+- 在写Mapper接口 
+
+  ```java
+  /**
+   * msg Base-->mybatis-plus
+   */
+  
+  @Repository // DAO层
+  public interface SysRoleMapper extends BaseMapper<SysRole> {
+  
+  }
+  ```
+
+- 写Service接口及其实现
+
+  ```java
+  /**
+   * msg   IService --> mybatis-plus:
+   */
+  public interface SysRoleService extends IService<SysRole> {
+  }
+  
+  /**
+   * msg   mybatis-plus -- > ServiceImpl
+   */
+  @Service	
+  public class SysRoleServiceImp extends ServiceImpl<SysRoleMapper, SysRole>
+          implements SysRoleService {
+  }
+  ```
+
+  
+
+
 
 
 
