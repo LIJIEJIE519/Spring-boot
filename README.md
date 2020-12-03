@@ -1,6 +1,6 @@
 # Junlan博客
 
-**git push -u origin main**
+**git push -u springboot main**
 
 
 
