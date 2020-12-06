@@ -17,30 +17,10 @@ import java.util.Date;
  **/
 @Data
 @Accessors(chain = true)
-//public class JwtToken implements HostAuthenticationToken {
 public class JwtToken implements AuthenticationToken {
 
-	// 登录ip
-//    private String host;
-
-//    private String username;
-//
-//    private String salt;
 
     private String token;
-
-//    private Date createDate;
-//
-//    // 多长时间过期，默认一小时
-//    private long expireSecond;
-    /**
-     * 过期日期
-     */
-//    private Date expireDate;
-
-//    private String principal;
-
-//    private String credentials;
 
     public JwtToken() {}
 
@@ -57,13 +37,5 @@ public class JwtToken implements AuthenticationToken {
     public Object getCredentials() {
         return token;
     }
-
-//    public static JwtToken build(String token, String username, String salt, long expireSecond) {
-//        return new JwtToken()
-//                .setUsername(username)
-//                .setToken(token)
-//                .setSalt(salt);
-//
-//    }
 
 }
